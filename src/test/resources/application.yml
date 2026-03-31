@@ -1,0 +1,23 @@
+server:
+  port: 0  # 0 tells Spring to pick a random available port (prevents port conflicts)
+
+spring:
+  application:
+    name: loan-flow-test
+
+  datasource:
+    # This creates a private, in-memory database named 'testdb'
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    # Use H2 Dialect for testing
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop # Cleans up the DB after tests finish
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
