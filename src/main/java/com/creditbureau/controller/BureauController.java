@@ -15,9 +15,9 @@ public class BureauController {
 
     private final BureauReportService bureauReportService;
 
-    @PostMapping("/report")
-    public ResponseEntity<BureauResponse> getCreditReport(@RequestBody BureauRequest request) {
-        BureauResponse response = bureauReportService.generateReport(request);
+    @GetMapping("/report")
+    public ResponseEntity<BureauResponse> getCreditReport(@RequestParam("panNumber") String panNumber) {
+        BureauResponse response = bureauReportService.generateReport(panNumber);
         return ResponseEntity.ok(response);
     }
 }

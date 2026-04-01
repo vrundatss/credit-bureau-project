@@ -22,15 +22,15 @@ public class BureauReportService {
     private final TradeLineRepository tradeLineRepository;
 
     @Transactional(readOnly = true)
-    public BureauResponse generateReport(BureauRequest request) {
-        log.info("Generating report for PAN: {}", request.getPanNumber());
+    public BureauResponse generateReport(String panNumber ) {
+        log.info("Generating report for PAN: {}", panNumber);
 
-        Optional<Citizen> citizenOpt = citizenRepository.findByPanNumber(request.getPanNumber());
+        Optional<Citizen> citizenOpt = citizenRepository.findByPanNumber(panNumber);
 
         if (citizenOpt.isEmpty()) {
-            log.warn("Citizen not found in Bureau database for PAN: {}", request.getPanNumber());
+            log.warn("Citizen not found in Bureau database for PAN: {}", panNumber);
             return BureauResponse.builder()
-                    .panNumber(request.getPanNumber())
+                    .panNumber(panNumber)
                     .totalMonthlyEmi(BigDecimal.ZERO)
                     .found(false)
                     .build();
@@ -42,7 +42,6 @@ public class BureauReportService {
         return BureauResponse.builder()
                 .panNumber(citizen.getPanNumber())
                 .totalMonthlyEmi(totalActiveEmi)
-//                .creditScore(citizen.getCreditScore())
                 .found(true)
                 .build();
     }
