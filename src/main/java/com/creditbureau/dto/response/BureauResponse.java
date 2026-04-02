@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 public class BureauResponse {
     private String panNumber;
     private BigDecimal totalMonthlyEmi;
-//    private Integer creditScore; // Added this so it's a realistic bureau response
+//    private Integer creditScore;
     private boolean found;
 }
